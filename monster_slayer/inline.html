@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Vue LaraCasts</title>
+    <script src="https://unpkg.com/vue@2.1.4/dist/vue.js" charset="utf-8"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.2.3/css/bulma.css">
+    <style media="screen">
+      .avatar {
+        margin: auto;
+      }
+
+      .column {
+        padding: 10px;
+      }
+
+      .button {
+        min-width: 120px;
+      }
+
+      h2 {
+        font-size: 15px;
+        font-weight: bold;
+        text-align: center;
+      }
+
+      .swing {
+         perspective: 1000px;
+      }
+
+      .fade-enter-active, .fade-leave-active {
+        transform: none;
+        transition: all 0.5s cubic-bezier(.36,-0.64,.34,1.76);
+      }
+
+      .fade-enter, .fade-leave-active {
+        transform: rotateX(90deg);
+        transition: all 0.5s cubic-bezier(.36,-0.64,.34,1.76);
+      }
+    </style>
+  </head>
+
+  <body style="padding: 30px;">
+    <div id="monster-slayer" class="container">
+      <div class="health-bars box">
+        <div class="columns">
+          <div class="me column">
+            <h2>Your Health</h2>
+            <div class="image avatar is-96x96">
+              <img src="http://vignette3.wikia.nocookie.net/fantendo/images/0/0e/NES_Mario.jpg/revision/latest?cb=20120709172153">
+            </div>
+            <progress class="progress" :class="progressClass(me)" :value="me" max="100"></progress>
+          </div>
+          <div class="monster column">
+            <h2>Monster Health</h2>
+            <div class="image avatar is-96x96">
+              <img src="http://vignette2.wikia.nocookie.net/fantendo/images/1/1f/NES_Bowser_5.png/revision/latest?cb=20131110124146">
+            </div>
+            <progress class="progress" :class="progressClass(monster)" :value="monster" max="100"></progress>
+          </div>
+        </div>
+      </div>
+
+      <div class="actions box">
+        <div class="columns">
+          <div class="column">
+            <div class="button is-primary" @click="attack">
+              Attack
+            </div>
+          </div>
+          <div class="column">
+            <div class="button is-success" @click="specialAttack">
+              Special Attack
+            </div>
+          </div>
+          <div class="column">
+            <div class="button is-info" @click="heal">
+              Heal
+            </div>
+          </div>
+          <div class="column">
+            <div class="button is-danger" @click="reset">
+              Give Up
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="messages box">
+        <transition-group class="swing" name="fade" tag="div">
+          <div class="notification" :class="messageClass(message)" v-for="(message, index) in messages" :key="message" :style="opacity(index)">
+            {{ message.body }}
+          </div>
+        </transition-group>
+      </div>
+
+      <div class="modal won is-active" v-if="won">
+        <div class="modal-background"></div>
+        <div class="modal-content">
+          <div class="card is-fullwidth">
+            <header class="card-header">
+              <p class="card-header-title">
+                Victory
+              </p>
+            </header>
+            <div class="card-content">
+              <div class="content">
+                Congratulations - You won!
+              </div>
+            </div>
+            <footer class="card-footer">
+              <a class="card-footer-item" @click="reset">Again!</a>
+            </footer>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal lost is-active" v-if="lost">
+        <div class="modal-background"></div>
+        <div class="modal-content">
+          <div class="card is-fullwidth">
+            <header class="card-header">
+              <p class="card-header-title">
+                Defeat
+              </p>
+            </header>
+            <div class="card-content">
+              <div class="content">
+                Oh no - You lost!
+              </div>
+            </div>
+            <footer class="card-footer">
+              <a class="card-footer-item" @click="reset">Again!</a>
+            </footer>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <script type="text/javascript">
+      new Vue({
+        el: "#monster-slayer",
+        data: {
+          me: 100,
+          monster: 100,
+          messages: [],
+          foo: true
+        },
+
+        computed: {
+          won() {
+            return this.monster <= 0;
+          },
+
+          lost() {
+            return this.me <= 0;
+          }
+        },
+
+        methods: {
+          messageClass(message) {
+            if (message.messageType === "attacked")  { return "is-danger";}
+            if (message.messageType === "heal")      { return "is-info";}
+            return "is-success";
+          },
+
+          progressClass(player) {
+            if (player < 30) { return "is-danger";}
+            if (player < 60) { return "is-warning";}
+            return "is-success";
+          },
+
+          opacity(index) {
+            return "opacity: " + (1.0 - index / 20)
+          },
+
+          monsterAttack(maxDamage = 15) {
+            var damage =  Math.floor(Math.random() * maxDamage);
+            this.me -= damage;
+            this.messages.unshift({
+              messageType: "attacked",
+              body: "The monster attacked you and did " + damage + "HP Damage"
+            });
+          },
+
+          myAttack(maxDamage = 10) {
+            var damage =  Math.floor(Math.random() * maxDamage);
+            this.monster -= damage;
+            this.messages.unshift({
+              messageType: "attacking",
+              body: "You attacked the monster and did " + damage + "HP Damage"
+            });
+          },
+
+          attack(maxDamage = 10) {
+            this.myAttack();
+            this.monsterAttack();
+          },
+
+          specialAttack() {
+            this.myAttack(20);
+            this.monsterAttack(15);
+          },
+
+          heal() {
+            this.me += 15;
+            this.messages.unshift({
+              messageType: "heal",
+              body: "You healed yourself for 15HP"
+            });
+            this.monsterAttack();
+          },
+
+          reset() {
+            this.me = 100;
+            this.monster = 100;
+            this.messages = [];
+          }
+        },
+      });
+    </script>
+  </body>
+</html>
