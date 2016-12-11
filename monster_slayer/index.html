@@ -54,7 +54,7 @@
         </div>
       </div>
 
-      <div class="messages box">
+      <div class="messages box" v-if="messages.length">
         <transition-group class="swing" name="fade" tag="div">
           <div class="notification" :class="messageClass(message)" v-for="(message, index) in messages" :key="message" :style="opacity(index)">
             {{ message.body }}
