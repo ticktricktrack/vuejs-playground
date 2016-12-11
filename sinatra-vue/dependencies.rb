@@ -4,10 +4,8 @@ require 'rubygems'
 require 'bundler'
 
 %w(
-  active_record
   active_support
   kramdown
-  pg
   sinatra
   sinatra/flash
   sinatra/static_assets
