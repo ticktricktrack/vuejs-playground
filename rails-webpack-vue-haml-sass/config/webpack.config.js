@@ -1,8 +1,5 @@
-// Example webpack configuration with asset fingerprinting in production.
-'use strict';
-
-var path = require('path');
-var webpack = require('webpack');
+var path = require('path')
+var webpack = require('webpack')
 var StatsPlugin = require('stats-webpack-plugin');
 
 // must match config.webpack.dev_server.port
@@ -10,6 +7,7 @@ var devServerPort = 3808;
 
 // set NODE_ENV=production on the environment to add asset fingerprints
 var production = process.env.NODE_ENV === 'production';
+
 
 var config = {
   entry: {
@@ -28,10 +26,29 @@ var config = {
     filename: production ? '[name]-[chunkhash].js' : '[name].js'
   },
 
-  resolve: {
-    root: path.join(__dirname, '..', 'webpack')
+  module: {
+    rules: [
+      {
+        test: /\.vue$/,
+        loader: 'vue-loader',
+        options: {
+          // vue-loader options go here
+        }
+      },
+      {
+        test: /\.js$/,
+        loader: 'babel-loader',
+        exclude: /node_modules/
+      },
+      {
+        test: /\.(png|jpg|gif|svg)$/,
+        loader: 'file-loader',
+        options: {
+          name: '[name].[ext]?[hash]'
+        }
+      }
+    ]
   },
-
   plugins: [
     // must match config.webpack.manifest_filename
     new StatsPlugin('manifest.json', {
@@ -41,22 +58,39 @@ var config = {
       chunks: false,
       modules: false,
       assets: true
-    })]
-};
+    })
+  ],
+  resolve: {
+    alias: {
+      'vue$': 'vue/dist/vue.common.js'
+    }
+  },
+  devServer: {
+    historyApiFallback: true,
+    noInfo: true
+  },
+  devtool: '#eval-source-map'
+}
 
-if (production) {
-  config.plugins.push(
-    new webpack.NoErrorsPlugin(),
-    new webpack.optimize.UglifyJsPlugin({
-      compressor: { warnings: false },
-      sourceMap: false
-    }),
+if (process.env.NODE_ENV === 'production') {
+  module.exports.devtool = '#source-map'
+  // http://vue-loader.vuejs.org/en/workflow/production.html
+  module.exports.plugins = (module.exports.plugins || []).concat([
     new webpack.DefinePlugin({
-      'process.env': { NODE_ENV: JSON.stringify('production') }
+      'process.env': {
+        NODE_ENV: '"production"'
+      }
     }),
-    new webpack.optimize.DedupePlugin(),
-    new webpack.optimize.OccurenceOrderPlugin()
-  );
+    new webpack.optimize.UglifyJsPlugin({
+      sourceMap: true,
+      compress: {
+        warnings: false
+      }
+    }),
+    new webpack.LoaderOptionsPlugin({
+      minimize: true
+    })
+  ])
 } else {
   config.devServer = {
     port: devServerPort,
