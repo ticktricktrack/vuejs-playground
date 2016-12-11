@@ -5,6 +5,6 @@ new Vue({
   el: '#foo',
   data: {
     title: 'Vue is working',
-    body: 'finally'
+    body: 'finally - changed to test livereload'
   }
 })

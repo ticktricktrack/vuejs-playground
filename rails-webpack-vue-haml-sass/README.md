@@ -1,24 +1,13 @@
-# README
+##### Rails and Vue Template
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+- Rails 5
+- VueJs 2
+- Webpack 2
+- Haml
+- Sass
+- Bulma CSS
 
-Things you may want to cover:
+Copy this project as a baseline for future Vue projects.
 
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+Start via `foreman start`. Both the rails server, as well as the asset server will be started.
+Webpack has it's own livereload mechanism, for the rest, there is `guard`.
