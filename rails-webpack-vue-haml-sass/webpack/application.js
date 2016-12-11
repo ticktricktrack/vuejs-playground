@@ -1,10 +1,8 @@
 import Vue from 'vue'
+import App from './app.vue'
 console.log("Hello world!");
 
 new Vue({
-  el: '#foo',
-  data: {
-    title: 'Vue is working',
-    body: 'finally - changed to test livereload'
-  }
+  el: '#app',
+  render: h => h(App)
 })
