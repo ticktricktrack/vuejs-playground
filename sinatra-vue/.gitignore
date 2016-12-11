@@ -1,0 +1,10 @@
+.sass-cache
+*.swp
+public/assets
+log
+config/database.yml
+.bundle
+bower_components
+node_modules
+Gemfile.lock
+npm-*
