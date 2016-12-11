@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Vue LaraCasts</title>
+    <script src="https://unpkg.com/vue@2.1.4/dist/vue.js" charset="utf-8"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.2.3/css/bulma.css">
+    <link rel="stylesheet" href="styles.css">
+  </head>
+
+  <body style="padding: 30px;">
+    <div id="monster-slayer" class="container">
+      <div class="health-bars box">
+        <div class="columns">
+          <div class="me column">
+            <h2>Your Health</h2>
+            <div class="image avatar is-96x96">
+              <img src="http://vignette3.wikia.nocookie.net/fantendo/images/0/0e/NES_Mario.jpg/revision/latest?cb=20120709172153">
+            </div>
+            <progress class="progress" :class="progressClass(me)" :value="me" max="100"></progress>
+          </div>
+          <div class="monster column">
+            <h2>Monster Health</h2>
+            <div class="image avatar is-96x96">
+              <img src="http://vignette2.wikia.nocookie.net/fantendo/images/1/1f/NES_Bowser_5.png/revision/latest?cb=20131110124146">
+            </div>
+            <progress class="progress" :class="progressClass(monster)" :value="monster" max="100"></progress>
+          </div>
+        </div>
+      </div>
+
+      <div class="actions box">
+        <div class="columns">
+          <div class="column">
+            <div class="button is-primary" @click="attack">
+              Attack
+            </div>
+          </div>
+          <div class="column">
+            <div class="button is-success" @click="specialAttack">
+              Special Attack
+            </div>
+          </div>
+          <div class="column">
+            <div class="button is-info" @click="heal">
+              Heal
+            </div>
+          </div>
+          <div class="column">
+            <div class="button is-danger" @click="reset">
+              Give Up
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="messages box">
+        <transition-group class="swing" name="fade" tag="div">
+          <div class="notification" :class="messageClass(message)" v-for="(message, index) in messages" :key="message" :style="opacity(index)">
+            {{ message.body }}
+          </div>
+        </transition-group>
+      </div>
+
+      <div class="modal won is-active" v-if="won">
+        <div class="modal-background"></div>
+        <div class="modal-content">
+          <div class="card is-fullwidth">
+            <header class="card-header">
+              <p class="card-header-title">
+                Victory
+              </p>
+            </header>
+            <div class="card-content">
+              <div class="content">
+                Congratulations - You won!
+              </div>
+            </div>
+            <footer class="card-footer">
+              <a class="card-footer-item" @click="reset">Again!</a>
+            </footer>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal lost is-active" v-if="lost">
+        <div class="modal-background"></div>
+        <div class="modal-content">
+          <div class="card is-fullwidth">
+            <header class="card-header">
+              <p class="card-header-title">
+                Defeat
+              </p>
+            </header>
+            <div class="card-content">
+              <div class="content">
+                Oh no - You lost!
+              </div>
+            </div>
+            <footer class="card-footer">
+              <a class="card-footer-item" @click="reset">Again!</a>
+            </footer>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <script src="main.js" charset="utf-8"></script>
+  </body>
+</html>
