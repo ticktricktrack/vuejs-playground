@@ -5,7 +5,6 @@ require 'bundler'
 
 %w(
   active_support
-  kramdown
   sinatra
   sinatra/flash
   sinatra/static_assets
