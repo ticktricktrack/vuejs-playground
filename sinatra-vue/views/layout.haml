@@ -1,0 +1,11 @@
+!!!
+%html
+  %head
+    %title Sinatra Webpack Vue Haml sass
+    %meta{ charset: 'utf-8' }
+    %link{ rel: :stylesheet, type: "text/css", href: "/assets/stylesheets/app.css" }
+
+  %body
+    .container
+      = yield
+    = javascript_tag '/assets/javascripts/app.js'
