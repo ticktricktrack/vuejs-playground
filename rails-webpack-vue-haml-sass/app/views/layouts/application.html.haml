@@ -8,7 +8,8 @@
     = javascript_include_tag "http://localhost:3808/webpack-dev-server.js"
 
   %body
-    .container
+    .bg-image
+    .container.body-container
       = yield
 
     = javascript_include_tag *webpack_asset_paths("application")
