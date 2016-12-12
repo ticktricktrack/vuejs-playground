@@ -7,7 +7,7 @@
 
 <script>
 export default {
-  name: 'app',
+  name: 'hello-world',
   data() {
     return {
       title: 'Vue is working',

@@ -1,8 +1,8 @@
 import Vue from 'vue'
-import App from './app.vue'
-console.log("Hello world!");
+import HelloWorld from './hello_world.vue'
+console.log("webpack loaded");
 
+Vue.component('hello-world', HelloWorld)
 new Vue({
-  el: '#app',
-  render: h => h(App)
+  el: '#app'
 })
