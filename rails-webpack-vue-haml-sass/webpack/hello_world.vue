@@ -17,7 +17,7 @@ export default {
 }
 </script>
 
-<style lang="css">
+<style scoped>
   h1 {
     color: #999;
   }
