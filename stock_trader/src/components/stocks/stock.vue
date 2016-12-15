@@ -1,13 +1,10 @@
 <template lang="html">
-  <div class="container">
-
-  </div>
+  <h1>stock/stock</h1>
 </template>
 
 <script>
-  export default {
-
-  }
+export default {
+}
 </script>
 
 <style lang="css">
