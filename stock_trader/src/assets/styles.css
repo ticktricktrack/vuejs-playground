@@ -1,3 +1,13 @@
 .body-wrapper {
   padding: 30px;
 }
+
+.main-container {
+  margin-top: 30px;
+}
+
+h1 {
+  font-size: 20px;
+  font-weight: bold;
+  color: #555;
+}
