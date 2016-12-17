@@ -1,6 +1,6 @@
 <template lang="html">
   <div class="columns is-multiline">
-    <app-stock v-for="stock in stocks"></app-stock>
+    <app-stock v-for="stock in stocks" :stock="stock"></app-stock>
   </div>
 </template>
 
