@@ -1,32 +1,56 @@
 <template lang="html">
-  <nav class="nav">
+  <nav class="nav box">
     <div class="nav-left">
-      <div class="nav-item is-brand">
-        <router-link to='/'>
-          <i class="fa fa-line-chart fa-3x"></i>
-        </router-link>
-      </div>
-      <div class="nav-item is-brand">
-        <router-link to='/'>
-          <div class="content is-large">
-            Stock Trader
-          </div>
-        </router-link>
-      </div>
+      <a class="nav-item is-brand" href="#">
+        <img src="http://bulma.io/images/bulma-type.png" alt="Bulma logo">
+      </a>
     </div>
 
+    <div class="nav-center">
+      <a class="nav-item" href="#">
+        <span class="icon">
+          <i class="fa fa-github"></i>
+        </span>
+      </a>
+      <a class="nav-item" href="#">
+        <span class="icon">
+          <i class="fa fa-twitter"></i>
+        </span>
+      </a>
+    </div>
+
+    <span class="nav-toggle">
+      <span></span>
+      <span></span>
+      <span></span>
+    </span>
+
     <div class="nav-right nav-menu">
-      <router-link to='/stocks' class="nav-item">Stocks</router-link>
-      <router-link to='/portfolio' class="nav-item">Portfolio</router-link>\
+      <a class="nav-item" href="#">
+        Home
+      </a>
+      <a class="nav-item" href="#">
+        Documentation
+      </a>
+      <a class="nav-item" href="#">
+        Blog
+      </a>
+
       <span class="nav-item">
-       <a class="button is-primary" href="#">
-         <span class="icon">
-           <i class="fa fa-download"></i>
-         </span>
-         <span>End Day</span>
-       </a>
-     </span>
-   </div>
+        <a class="button" >
+          <span class="icon">
+            <i class="fa fa-twitter"></i>
+          </span>
+          <span>Tweet</span>
+        </a>
+        <a class="button is-primary" href="#">
+          <span class="icon">
+            <i class="fa fa-download"></i>
+          </span>
+          <span>Download</span>
+        </a>
+      </span>
+    </div>
   </nav>
 </template>
 

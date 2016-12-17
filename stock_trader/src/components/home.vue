@@ -1,5 +1,5 @@
 <template lang="html">
-  <h1>home</h1>
+  <h1 class="content is-large">home</h1>
 </template>
 
 <script>
