@@ -18,8 +18,8 @@
       <footer class="card-footer">
         <a @click="buy"
           class="card-footer-item"
-          :class="{'is-disabled': lessThanOne}">
-          Buy
+          :class="{'is-disabled': noMoney || lessThanOne}">
+          {{ noMoney ? "Not enough funds" : "Buy" }}
         </a>
       </footer>
     </div>
@@ -49,8 +49,14 @@
     },
 
     computed: {
+      funds() {
+        return this.$store.getters.funds;
+      },
       lessThanOne() {
         return this.quantity < 1 || !Number.isInteger(this.quantity);
+      },
+      noMoney() {
+        return this.quantity * this.stock.price > this.funds;
       }
     }
   }
