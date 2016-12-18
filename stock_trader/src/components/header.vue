@@ -6,35 +6,9 @@
       </a>
     </div>
 
-    <div class="nav-center">
-      <a class="nav-item" href="#">
-        <span class="icon">
-          <i class="fa fa-github"></i>
-        </span>
-      </a>
-      <a class="nav-item" href="#">
-        <span class="icon">
-          <i class="fa fa-twitter"></i>
-        </span>
-      </a>
-    </div>
-
-    <span class="nav-toggle">
-      <span></span>
-      <span></span>
-      <span></span>
-    </span>
-
     <div class="nav-right nav-menu">
-      <a class="nav-item" href="#">
-        Home
-      </a>
-      <a class="nav-item" href="#">
-        Documentation
-      </a>
-      <a class="nav-item" href="#">
-        Blog
-      </a>
+      <router-link to="/stocks" class="nav-item">Stocks</router-link>
+      <router-link to="/portfolio" class="nav-item">Portfolio</router-link>
 
       <span class="nav-item">
         <a class="button" >
@@ -47,7 +21,7 @@
           <span class="icon">
             <i class="fa fa-download"></i>
           </span>
-          <span>Download</span>
+          <span>End Day</span>
         </a>
       </span>
     </div>
