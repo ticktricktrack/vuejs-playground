@@ -21,7 +21,7 @@
           </span>
           <span>Tweet</span>
         </a>
-        <a class="button is-primary" href="#">
+        <a @click="endDay" class="button is-primary" href="#">
           <span class="icon">
             <i class="fa fa-download"></i>
           </span>
@@ -33,10 +33,20 @@
 </template>
 
 <script>
+  import { mapActions } from 'vuex';
+
   export default {
     computed: {
       funds() {
         return this.$store.getters.funds;
+      }
+    },
+    methods: {
+      ...mapActions([
+        'randomize'
+      ]),
+      endDay() {
+        this.randomize();
       }
     }
   }

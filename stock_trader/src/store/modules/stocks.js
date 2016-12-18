@@ -14,8 +14,11 @@ const mutations = {
   setStocks(state, stocks) {
     state.stocks = stocks;
   },
-  random(state) {
-
+  randomize(state) {
+    console.log('randomiziong');
+    state.stocks.forEach(stock => {
+      stock.price = Math.max(Math.round( stock.price + Math.random() * 20 - 10), 1);
+    })
   }
 };
 
@@ -27,7 +30,7 @@ const actions = {
     commit('buy', order);
   },
   randomize: ({ commit }) => {
-    commit('random');
+    commit('randomize');
   }
 };
 
