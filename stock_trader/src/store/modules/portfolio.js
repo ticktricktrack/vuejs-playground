@@ -41,6 +41,7 @@ const mutations = {
     } else {
       state.stocks.splice(state.stocks.indexOf(record), 1);
     }
+    console.log('selling', record);
     state.funds += price * quantity;
   },
 };

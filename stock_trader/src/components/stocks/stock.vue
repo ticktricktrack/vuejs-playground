@@ -21,7 +21,6 @@
           :class="{'is-disabled': lessThanOne}">
           Buy
         </a>
-        <a class="card-footer-item">Sell</a>
       </footer>
     </div>
   </div>
@@ -44,6 +43,7 @@
           quantity: this.quantity
         };
         console.log(order);
+        this.$store.dispatch('buy', order);
         this.quantity = null;
       },
     },

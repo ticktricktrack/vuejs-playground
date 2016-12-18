@@ -7,6 +7,10 @@
     </div>
 
     <div class="nav-right nav-menu">
+      <div class="nav-item">
+        <i class="fa fa-usd"></i>
+        {{ funds }}
+      </div>
       <router-link to="/stocks" class="nav-item">Stocks</router-link>
       <router-link to="/portfolio" class="nav-item">Portfolio</router-link>
 
@@ -29,8 +33,13 @@
 </template>
 
 <script>
-export default {
-}
+  export default {
+    computed: {
+      funds() {
+        return this.$store.getters.funds;
+      }
+    }
+  }
 </script>
 
 <style lang="css">
