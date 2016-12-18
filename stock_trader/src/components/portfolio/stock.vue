@@ -19,8 +19,8 @@
       <footer class="card-footer">
         <a @click="sell"
           class="card-footer-item"
-          :class="{'is-disabled': lessThanOne}">
-          sell
+          :class="{'is-disabled': lessThanOne || insufficientQuantity}">
+          {{ insufficientQuantity ? "Can't sell more that you own" : "Sell" }}
         </a>
       </footer>
     </div>
@@ -59,6 +59,10 @@
     computed: {
       lessThanOne() {
         return this.quantity < 1 || !Number.isInteger(this.quantity);
+      },
+
+      insufficientQuantity() {
+        return this.quantity > this.stock.quantity;
       }
     }
   }
