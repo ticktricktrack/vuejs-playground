@@ -15,11 +15,17 @@
       <router-link to="/portfolio" class="nav-item">Portfolio</router-link>
 
       <span class="nav-item">
-        <a class="button" >
+        <a @click="save" class="button" >
           <span class="icon">
             <i class="fa fa-twitter"></i>
           </span>
-          <span>Tweet</span>
+          <span>Save</span>
+        </a>
+        <a @click='load' class="button" >
+          <span class="icon">
+            <i class="fa fa-twitter"></i>
+          </span>
+          <span>Load</span>
         </a>
         <a @click="endDay" class="button is-primary" href="#">
           <span class="icon">
@@ -47,6 +53,23 @@
       ]),
       endDay() {
         this.randomize();
+      },
+      save() {
+        const data = {
+          funds: this.$store.getters.funds,
+          portfolio: this.$store.getters.portfolio,
+          stocks: this.$store.getters.stocks
+        };
+        this.$http.put('data.json', data);
+      },
+      load() {
+        this.$http.get('data.json')
+          .then(response => response.json())
+          .then(data => {
+            if (data) {
+              this.loadStocks(data.stocks);
+            }
+          });
       }
     }
   }

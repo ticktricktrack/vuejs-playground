@@ -26,6 +26,9 @@ const actions = {
   initStocks: ({commit}) => {
       commit('setStocks', stocks);
   },
+  loadStocks: ({commit}, firestocks) => {
+    commit('setStocks', firestocks);
+  },
   buy: ({ commit }, order) => {
     commit('buy', order);
   },
